@@ -21,6 +21,7 @@
   "homepage": "https://github.com/RBMemo/web-app#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "express-winston": "^4.2.0",
     "swagger-autogen": "^2.17.2",
     "swagger-ui-express": "^4.3.0",
     "winston": "^3.3.3"
