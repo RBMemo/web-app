@@ -1,0 +1,28 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "Web application for interacting with RBMemo contracts.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gendoc": "node docs/generate.js",
+    "start": "node app.js",
+    "dev": "npx nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RBMemo/web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RBMemo/web-app/issues"
+  },
+  "homepage": "https://github.com/RBMemo/web-app#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "swagger-autogen": "^2.17.2",
+    "swagger-ui-express": "^4.3.0",
+    "winston": "^3.3.3"
+  }
+}
