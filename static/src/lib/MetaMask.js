@@ -9,7 +9,8 @@ const chains = {
     rinkeby: 'rinkeby',
     goerli: 'goerli',
     kovan: 'kovan',
-    avalanche: 'avalanche'
+    avalanche: 'avalanche',
+    fuji: 'fuji'
 };
 const requiredChain = chains.avalanche;
 
@@ -31,7 +32,11 @@ function chainChanged(chainId, setChain) {
     '0x4': chains.rinkeby,
     '0x5': chains.goerli,
     '0x2a': chains.kovan,
+    '0xa86a': chains.avalanche,
+    '0xa869': chains.fuji
   }
+
+  console.log('chainId:', chainId);
 
   setChain(idToString[chainId]);
 }
@@ -40,6 +45,23 @@ function connect() {
   if(!ethProvider) return;
 
   ethProvider.request({ method: 'eth_requestAccounts' })
+  .catch((err) => console.error(err));
+}
+
+function switchChain(newChain) {
+  const stringToId = {
+    [chains.mainnet]: '0x1',
+    [chains.ropsten]: '0x3',
+    [chains.rinkeby]: '0x4',
+    [chains.goerli]: '0x5',
+    [chains.kovan]: '0x2a',
+    [chains.avalanche]: '0xa86a',
+    [chains.fuji]: '0xa869'
+  }
+
+  const chainId = stringToId[newChain];
+
+  ethProvider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId }] })
   .catch((err) => console.error(err));
 }
 
@@ -75,5 +97,6 @@ export {
   requiredChain,
   dispatchMethod,
   dispatchMethodAsync,
-  web3
+  web3,
+  switchChain
 }

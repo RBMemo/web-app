@@ -2,11 +2,10 @@ import { useContext } from 'react';
 import { Button, Image } from 'theme-ui';
 import { useResponsiveValue } from '@theme-ui/match-media';
 import MetaMaskOnboarding from '@metamask/onboarding';
-import { connect } from '../../lib/MetaMask';
+import { connect, requiredChain, switchChain } from '../../lib/MetaMask';
 import { WalletContext } from '../../lib/WalletProvider';
 import MetaMaskLogo from '../../images/metamask_logo.png';
 import AvaxLogo from '../../images/avax_logo.svg'
-
 
 function InstallButton() {
   return <BaseButton text="Install" imageSrc={MetaMaskLogo} variant="outlined" onClick={() => new MetaMaskOnboarding().startOnboarding() } />
@@ -14,6 +13,10 @@ function InstallButton() {
 
 function ConnectButton() {
   return <BaseButton text="Connect" imageSrc={MetaMaskLogo} variant="outlined" onClick={connect} />
+}
+
+function NetworkButton() {
+  return <BaseButton text="Wrong Network" imageSrc={MetaMaskLogo} variant="outlined" onClick={() => { switchChain(requiredChain) }} />
 }
 
 function ConnectedButton() {
@@ -40,5 +43,6 @@ function BaseButton({ text, imageSrc, ...props }) {
 export {
   InstallButton,
   ConnectButton,
+  NetworkButton,
   ConnectedButton
 }
