@@ -36,8 +36,6 @@ function chainChanged(chainId, setChain) {
     '0xa869': chains.fuji
   }
 
-  console.log('chainId:', chainId);
-
   setChain(idToString[chainId]);
 }
 
