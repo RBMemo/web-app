@@ -5,9 +5,9 @@ const theme = {
     monospace: 'Menlo, monospace',
   },
   colors: {
-    text: '#000',
-    background: '#fff',
-    primary: '#33e',
+    text: '#fff',
+    background: '#212121',
+    primary: '#F05454'
   },
   breakpoints: [
     '600px', // mobile

@@ -1,11 +1,10 @@
-import { ThemeProvider } from '@theme-ui/core';
-import theme from './theme';
-import NavBar from './components/navbar';
+import ThemeProvider from './lib/themes/ThemeProvider';
 import WalletProvider from './lib/WalletProvider';
+import NavBar from './components/navbar';
 
 function App() {
   return (
-    <ThemeProvider {...{theme}}>
+    <ThemeProvider>
       <WalletProvider>
         <NavBar />
       </WalletProvider>
