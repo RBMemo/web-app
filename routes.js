@@ -3,7 +3,7 @@ const swaggerFile = require('./docs/swagger_file.json');
 const express = require('express');
 const router = express.Router();
 
-router.use(express.static('web/build'));
+router.use(express.static('static/build'));
 router.get('/health', (_, res) => { /* #swagger.ignore = true */ res.status(200).json({ message: 'healthy' }) });
 
 // dev only
