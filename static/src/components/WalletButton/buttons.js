@@ -16,7 +16,7 @@ function ConnectButton() {
 }
 
 function NetworkButton() {
-  return <BaseButton text="Wrong Network" imageSrc={MetaMaskLogo} variant="outlined" onClick={() => { switchChain(requiredChain) }} />
+  return <BaseButton text={`${useResponsiveValue(['!', 'Wrong'])} Network`} imageSrc={MetaMaskLogo} variant="outlined" onClick={() => { switchChain(requiredChain) }} />
 }
 
 function ConnectedButton() {
