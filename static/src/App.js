@@ -1,6 +1,6 @@
 import ThemeProvider from './lib/themes/ThemeProvider';
 import WalletProvider from './lib/WalletProvider';
-import NavBar from './components/navbar';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
