@@ -1,0 +1,22 @@
+.PoolColumn {
+  position: relative;
+  width: 100%;
+}
+
+.PoolColumnData {
+  position: relative;
+  flex-direction: column;
+  flex: 1;
+  padding: 16px;
+  align-items: center;
+  row-gap: 32px;
+  z-index: 2;
+}
+
+.PoolColumnBar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border-radius: 10px;
+  z-index: 1;
+}

@@ -33,7 +33,7 @@ function ConnectedButton() {
 
 function BaseButton({ text, imageSrc, ...props }) {
   return (
-    <Button sx={{ display: 'flex', alignItems: 'center' }} {...props}>
+    <Button variant="noHover" sx={{ display: 'flex', alignItems: 'center' }} {...props}>
       <Image src={imageSrc} width="20px" height="20px" mr="8px" />
       {text}
     </Button>
