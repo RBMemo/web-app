@@ -61,9 +61,21 @@ async function deposit(account, amount, poolColor) {
   }
 }
 
+async function withdraw(account, amount, poolColor) {
+  try {
+    const pool = poolEnum(poolColor);
+    await dispatchMethodAsync(ControllerABI.methods.withdraw(account, amount, pool), { from: account });
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+}
+
 export {
   totalSupply,
   balanceOf,
   memoBalanceOf,
-  deposit
+  deposit,
+  withdraw
 }
