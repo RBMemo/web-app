@@ -60,8 +60,19 @@ const theme = {
   text: {
     monospace: {
       fontFamily: 'monospace'
+    },
+    hint: {
+      opacity: '60%',
+      fontSize: 'small'
     }
   }
 }
 
+const skeletonTheme = {
+  baseColor: "#b0b0b0",
+  highlightColor: "#e6e6e6",
+  inline: true
+}
+
 export default theme;
+export { skeletonTheme }

@@ -1,3 +1,10 @@
+.PoolCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
+}
+
 .PoolColumn {
   position: relative;
   width: 100%;
@@ -19,4 +26,10 @@
   width: 100%;
   border-radius: 10px;
   z-index: 1;
+}
+
+.PoolColumnItem {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
