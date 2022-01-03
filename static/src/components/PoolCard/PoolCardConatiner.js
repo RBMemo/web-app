@@ -1,14 +1,15 @@
-import { useContext, useEffect, useReducer,  } from "react";
+import { useCallback, useContext, useReducer, useState } from 'react';
 import PoolCardView from "./PoolCardView";
-import { totalSupply, balanceOf } from '../../lib/MemoPoolIntegrator';
+import { totalSupply, balanceOf, memoBalanceOf } from '../../lib/MemoPoolIntegrator';
 import { WalletContext } from '../../lib/WalletProvider';
 import { rebaseMultipliers, supplyProportions, formatNumber, poolReducer } from '../../lib/PoolHelper';
 
 function PoolCardContainer() {
-  const [data, dispatch] = useReducer(poolReducer, { red: {}, black: {} });
+  const [stats, dispatch] = useReducer(poolReducer, { red: {}, black: {} });
+  const [memoBalance, setMemoBalance] = useState();
   const { account } = useContext(WalletContext);
 
-  useEffect(() => {
+  const fetchStats = useCallback(() => {
     Promise.all([totalSupply('red'), totalSupply('black')])
     .then(([redSupply, blackSupply]) => {
       dispatch({ type: 'setTotalSupply', pool: 'red', value: formatNumber(redSupply) });
@@ -32,7 +33,17 @@ function PoolCardContainer() {
     }));
   }, [account]);
 
-  return <PoolCardView data={data} />;
+  const fetchMemoBalance = useCallback(() => {
+    memoBalanceOf(account).then(balance => setMemoBalance(formatNumber(balance, 9)));
+  }, [account]);
+
+  return (
+    <PoolCardView
+    fetchStats={fetchStats}
+    fetchMemoBalance={fetchMemoBalance}
+    memoBalance={memoBalance}
+    stats={stats} />
+  );
 }
 
 export default PoolCardContainer;

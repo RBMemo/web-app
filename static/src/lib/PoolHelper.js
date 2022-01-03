@@ -17,12 +17,16 @@ function supplyProportions(redTotalSupply, blackTotalSupply) {
     redProportion = Math.min(redTotalSupply / blackTotalSupply, 1);
     blackProportion = Math.min(blackTotalSupply / redTotalSupply, 1);
   }
+  else if(redTotalSupply)
+    redProportion = 1;
+  else if(blackTotalSupply)
+    blackProportion = 1;
   
   return [redProportion, blackProportion];
 }
 
-function formatNumber(number, decimals = 2) {
-  return number.toLocaleString(undefined, { maximumFractionDigits: decimals });
+function formatNumber(number, precision = 2, decimals = 9) {
+  return (number / 10**decimals).toLocaleString(undefined, { maximumFractionDigits: precision });
 }
 
 function poolReducer(state, action) {

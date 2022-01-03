@@ -1,17 +1,19 @@
 import detectEthereumProvider from '@metamask/detect-provider';
 import Web3 from "web3";
+import { signERC2612Permit } from 'eth-permit';
 
 const ethProvider = window.ethereum;
 const web3 = new Web3(ethProvider);
 const chains = {
-    mainnet: 'mainnet',
-    ropsten: 'ropsten',
-    rinkeby: 'rinkeby',
-    goerli: 'goerli',
-    kovan: 'kovan',
-    avalanche: 'avalanche',
-    fuji: 'fuji'
+  mainnet: 'mainnet',
+  ropsten: 'ropsten',
+  rinkeby: 'rinkeby',
+  goerli: 'goerli',
+  kovan: 'kovan',
+  avalanche: 'avalanche',
+  fuji: 'fuji'
 };
+const MEMO_ADDRESS = '0x136Acd46C134E8269052c62A67042D6bDeDde3C9';
 const requiredChain = chains.avalanche;
 
 const metaMaskInstalled = async () => await detectEthereumProvider();
@@ -88,6 +90,18 @@ async function dispatchMethodAsync(methodABI, txParams) {
   }
 }
 
+async function memoPermit(owner, spender, amount) {
+  const { r, s, v, value, deadline } = await signERC2612Permit(
+    ethProvider,
+    MEMO_ADDRESS,
+    owner,
+    spender,
+    amount
+  );
+
+  return [owner, spender, value, deadline, v, r, s];
+}
+
 export {
   initMetaMask,
   connect,
@@ -96,5 +110,6 @@ export {
   dispatchMethod,
   dispatchMethodAsync,
   web3,
-  switchChain
+  switchChain,
+  memoPermit
 }

@@ -44,8 +44,26 @@ const theme = {
         color: '#fff'
       }
     },
+    disabled: {
+      color: 'text',
+      bg: 'transparent',
+      border: '2px solid',
+      borderColor: 'text',
+      borderRadius: '8px',
+      opacity: '60%',
+      py: '6px'
+    },
     noHover: {
       borderRadius: '8px'
+    },
+    hint: {
+      opacity: '60%',
+      fontSize: 'small',
+      bg: 'transparent',
+      p: 1,
+      '&:hover': {
+        textDecoration: 'underline'
+      }
     }
   },
   cards: {
@@ -64,6 +82,23 @@ const theme = {
     hint: {
       opacity: '60%',
       fontSize: 'small'
+    }
+  },
+  forms: {
+    input: {
+      borderRadius: '10px',
+      border: '1px solid rgba(255, 255, 255, 50%)',
+      '&:focus': {
+        outline: '0'
+      }
+    },
+    select: {
+      bg: 'transparent',
+      borderRadius: '10px',
+      border: '1px solid rgba(255, 255, 255, 50%)',
+      '&:focus': {
+        outline: '0'
+      }
     }
   }
 }
