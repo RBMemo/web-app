@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Box, Button, Card, Flex, Heading, Image, Input, Select, Text, useThemeUI } from "theme-ui";
 import Skeleton from 'react-loading-skeleton';
+import { IoMdArrowRoundDown } from 'react-icons/io';
 import MemoToken from '../../images/memo_token.png';
 import DepositButton from "../DepositButton";
 import WithdrawButton from "../WithdrawButton";
+import TransferButton from "../TransferButton";
 import NavSlider from "../NavSlider";
 import './PoolCard.css'
 
@@ -20,7 +22,10 @@ function PoolCardView(props) {
       memoBalance={props.memoBalance}
       redBalance={props.stats.red.accountBalance}
       blackBalance={props.stats.black.accountBalance} />,
-    <PoolWithdrawPage 
+    <PoolWithdrawPage
+      redBalance={props.stats.red.accountBalance}
+      blackBalance={props.stats.black.accountBalance} />,
+    <PoolSwapPage
       redBalance={props.stats.red.accountBalance}
       blackBalance={props.stats.black.accountBalance} />
   ]
@@ -31,6 +36,77 @@ function PoolCardView(props) {
       <NavSlider buttons={['Stats', 'Deposit', 'Withdraw', 'Swap']} onIndexChange={onIndexChange} />
       {cardPages[pageIndex]}
     </Card>
+  );
+}
+
+function PoolSwapPage({ redBalance, blackBalance }) {
+  const [transferValue, setTransferValue] = useState('');
+  const [poolRoutes, setPoolRoutes] = useState({ from: 'red', to: 'black' });
+  
+  const balances = {
+    red: redBalance,
+    black: blackBalance
+  };
+
+  const colors = {
+    red: 'primary',
+    black: 'secondary'
+  }
+
+  function swapPoolRoutes() {
+    setPoolRoutes({
+      to: poolRoutes.from,
+      from: poolRoutes.to
+    });
+  }
+
+  function onTransferValueChange(e) {
+    const re = /^[0-9\b|.\b]+$/;
+    if (e.target.value === '' || re.test(e.target.value))
+      setTransferValue(e.target.value);
+  }
+
+  let validInput = true;
+  if(transferValue !== '' && (isNaN(transferValue) || isNaN(parseFloat(transferValue)) || Number(transferValue) > Number(balances[poolRoutes.from])))
+    validInput = false;
+
+  return(
+    <Box sx={{ width: ['100%', '80%'] }}>
+      <Flex className="PoolSwapContainer" mb="4">
+        <Flex className="PoolColumnData" sx={{ bg: colors[poolRoutes.from], borderRadius: '10px', width: '100%' }}>
+          <Box className="PoolColumnItem">
+            {balances[poolRoutes.from] || <Skeleton width="60px" />}
+            <Text variant="hint">{`${poolRoutes.from.charAt(0).toUpperCase()}MPL Balance`}</Text>
+          </Box>
+        </Flex>
+        <Flex className="PoolColumnData" sx={{ bg: colors[poolRoutes.to], borderRadius: '10px', width: '100%' }}>
+          <Box className="PoolColumnItem">
+            {balances[poolRoutes.to] || <Skeleton width="60px" />}
+            <Text variant="hint">{`${poolRoutes.to.charAt(0).toUpperCase()}MPL Balance`}</Text>
+          </Box>
+        </Flex>
+        <Button className="PoolSwapButton"
+        sx={{ border: '2px solid rgba(64, 64, 64)', p: 1, width: '32px', height: '32px' }}
+        onClick={swapPoolRoutes}>
+          <IoMdArrowRoundDown style={{ verticalAlign: 'middle' }} />
+        </Button>
+      </Flex>
+
+      <Flex sx={{ width: '100%', alignItems: 'center' }}>
+        <Text variant="hint" sx={{ flex: 1, textTransform: 'capitalize' }}>
+          {balances[poolRoutes.from] !== undefined ? `${poolRoutes.from.charAt(0).toUpperCase()}MPL Balance: ${balances[poolRoutes.from]}` : <Skeleton width="80px" />}
+        </Text>
+        <Button variant="hint" onClick={() => setTransferValue(balances[poolRoutes.from])}>Max</Button>
+      </Flex>
+      <Input sx={{ mt: 1, mb: 3, borderColor: validInput ? undefined : 'primary' }}
+      placeholder={`${poolRoutes.from.charAt(0).toUpperCase()}MPL to transfer`}
+      value={transferValue}
+      onChange={onTransferValueChange} />
+
+      <Flex sx={{ width: '100%', justifyContent: 'center' }}>
+        <TransferButton transferAmount={transferValue} fromPool={poolRoutes.from} toPool={poolRoutes.to} disabled={!validInput || Number(transferValue) === 0}/>
+      </Flex>
+    </Box>
   );
 }
 
