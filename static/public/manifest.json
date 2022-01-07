@@ -1,6 +1,6 @@
 {
-  "short_name": "Some Name",
-  "name": "Some name rebase app",
+  "short_name": "Splitbase",
+  "name": "Splitbase",
   "icons": [
     {
       "src": "favicon.ico",
