@@ -25,8 +25,8 @@ function supplyProportions(redTotalSupply, blackTotalSupply) {
   return [redProportion, blackProportion];
 }
 
-function formatNumber(number, precision = 2, decimals = 9) {
-  return (number / 10**decimals).toLocaleString(undefined, { maximumFractionDigits: precision });
+function formatNumber(number, precision = 2, decimals = 0) {
+  return (Number(number) / 10**decimals).toLocaleString(undefined, { maximumFractionDigits: precision });
 }
 
 function poolReducer(state, action) {

@@ -12,8 +12,8 @@ function PoolCardContainer() {
   const fetchStats = useCallback(() => {
     Promise.all([totalSupply('red'), totalSupply('black')])
     .then(([redSupply, blackSupply]) => {
-      dispatch({ type: 'setTotalSupply', pool: 'red', value: formatNumber(redSupply) });
-      dispatch({ type: 'setTotalSupply', pool: 'black', value: formatNumber(blackSupply) });
+      dispatch({ type: 'setTotalSupply', pool: 'red', value: formatNumber(redSupply, 2, 9) });
+      dispatch({ type: 'setTotalSupply', pool: 'black', value: formatNumber(blackSupply, 2, 9) });
 
       const multipliers = rebaseMultipliers(Number(redSupply), Number(blackSupply));
       dispatch({ type: 'setMultiplier', pool: 'red', value: formatNumber(multipliers[0]) });
@@ -25,16 +25,16 @@ function PoolCardContainer() {
     });
 
     balanceOf(account, 'red').then(balance => dispatch({
-      type: 'setAccountBalance', pool: 'red', value: formatNumber(balance, 4)
+      type: 'setAccountBalance', pool: 'red', value: formatNumber(balance, 9, 9)
     }));
 
     balanceOf(account, 'black').then(balance => dispatch({
-      type: 'setAccountBalance', pool: 'black', value: formatNumber(balance, 4)
+      type: 'setAccountBalance', pool: 'black', value: formatNumber(balance, 9, 9)
     }));
   }, [account]);
 
   const fetchMemoBalance = useCallback(() => {
-    memoBalanceOf(account).then(balance => setMemoBalance(formatNumber(balance, 9)));
+    memoBalanceOf(account).then(balance => setMemoBalance(formatNumber(balance, 9, 9)));
   }, [account]);
 
   return (

@@ -46,6 +46,7 @@
     ]
   },
   "devDependencies": {
-    "react-icons": "^4.3.1"
+    "react-icons": "^4.3.1",
+    "source-map-explorer": "^2.5.2"
   }
 }

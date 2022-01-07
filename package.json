@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "gendoc": "node docs/generate.js",
     "start": "node app.js",
-    "dev": "npx nodemon app.js"
+    "dev": "npx nodemon app.js",
+    "deploy": "cd static && npm run build && cd .. && eb deploy"
   },
   "repository": {
     "type": "git",
