@@ -76,7 +76,7 @@ async function poolSwap(account, amount, fromPoolColor, toPoolColor) {
   try {
     const fromPool = poolEnum(fromPoolColor);
     const toPool = poolEnum(toPoolColor);
-    await dispatchMethodAsync(ControllerABI.methods.poolSwap(account, amount, fromPool, toPool), { from: account });
+    await dispatchMethodAsync(ControllerABI.methods.poolSwap(amount, fromPool, toPool), { from: account });
     return true;
   } catch (e) {
     console.error(e);
