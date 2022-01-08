@@ -1,9 +1,10 @@
 import { Flex } from 'theme-ui';
 import { PoolCard } from '../components/PoolCard';
+import './Page.css'
 
 function PoolPage() {
   return (
-    <Flex sx={{ flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+    <Flex className="Page">
       <PoolCard />
     </Flex>
   );

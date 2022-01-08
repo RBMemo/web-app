@@ -1,0 +1,9 @@
+.FooterContainer {
+  padding: 8px;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  column-gap: 20px; 
+  row-gap: 10px;
+  max-height: 75px;
+}
