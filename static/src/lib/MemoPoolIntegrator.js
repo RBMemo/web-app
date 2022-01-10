@@ -1,9 +1,9 @@
 import Web3 from 'web3';
 import { dispatchMethodAsync, memoPermit } from './MetaMask';
-import RedMemoPool from './contracts/MemoPool/RedMemoPool.json';
-import BlackMemoPool from './contracts/MemoPool/BlackMemoPool.json';
+import RedMemoPool from '@splitbase-dev/contracts/deployments/mainnet/RedMemoPool.json';
+import BlackMemoPool from '@splitbase-dev/contracts/deployments/mainnet/BlackMemoPool.json';
 import ERC20ABI from './contracts/ERC20ABI.json';
-import RBPoolController from './contracts/MemoPool/RBPoolController.json';
+import RBPoolController from '@splitbase-dev/contracts/deployments/mainnet/RBPoolController.json';
 
 const MEMO_ADDRESS = '0x136Acd46C134E8269052c62A67042D6bDeDde3C9';
 
@@ -53,7 +53,7 @@ async function deposit(account, amount, poolColor) {
   try {
     const pool = poolEnum(poolColor);
     const signature = await memoPermit(account, RBPoolController.address, amount);
-    await dispatchMethodAsync(ControllerABI.methods.deposit(account, amount, pool, signature), { from: account });
+    await dispatchMethodAsync(ControllerABI.methods.deposit(amount, pool, signature), { from: account });
     return true;
   } catch (e) {
     console.error(e);
@@ -64,7 +64,7 @@ async function deposit(account, amount, poolColor) {
 async function withdraw(account, amount, poolColor) {
   try {
     const pool = poolEnum(poolColor);
-    await dispatchMethodAsync(ControllerABI.methods.withdraw(account, amount, pool), { from: account });
+    await dispatchMethodAsync(ControllerABI.methods.withdraw(amount, pool), { from: account });
     return true;
   } catch (e) {
     console.error(e);

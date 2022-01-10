@@ -5,6 +5,7 @@
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
     "@metamask/onboarding": "^1.0.1",
+    "@splitbase-dev/contracts": "github:RBMemo/contracts",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
