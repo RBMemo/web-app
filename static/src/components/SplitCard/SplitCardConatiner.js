@@ -1,10 +1,10 @@
 import { useCallback, useContext, useReducer, useState } from 'react';
-import PoolCardView from "./PoolCardView";
+import SplitCardView from "./SplitCardView";
 import { totalSupply, balanceOf, memoBalanceOf } from '../../lib/MemoPoolIntegrator';
 import { WalletContext } from '../../lib/WalletProvider';
-import { rebaseMultipliers, supplyProportions, formatNumber, poolReducer } from '../../lib/PoolHelper';
+import { rebaseMultipliers, supplyProportions, formatNumber, poolReducer } from '../../lib/SplitHelper';
 
-function PoolCardContainer() {
+function SplitCardContainer() {
   const [stats, dispatch] = useReducer(poolReducer, { red: {}, black: {} });
   const [memoBalance, setMemoBalance] = useState();
   const { account } = useContext(WalletContext);
@@ -38,7 +38,7 @@ function PoolCardContainer() {
   }, [account]);
 
   return (
-    <PoolCardView
+    <SplitCardView
     fetchStats={fetchStats}
     fetchMemoBalance={fetchMemoBalance}
     memoBalance={memoBalance}
@@ -46,4 +46,4 @@ function PoolCardContainer() {
   );
 }
 
-export default PoolCardContainer;
+export default SplitCardContainer;

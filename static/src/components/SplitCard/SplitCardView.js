@@ -7,9 +7,9 @@ import DepositButton from "../DepositButton";
 import WithdrawButton from "../WithdrawButton";
 import TransferButton from "../TransferButton";
 import NavSlider from "../NavSlider";
-import './PoolCard.css'
+import './SplitCard.css'
 
-function PoolCardView(props) {
+function SplitCardView(props) {
   const [pageIndex, setPageIndex] = useState(0);
   
   function onIndexChange(newIndex) {
@@ -17,7 +17,7 @@ function PoolCardView(props) {
   }
 
   const cardPages = [
-    <PoolStatsPage fetchStats={props.fetchStats} stats={props.stats} />,
+    <SplitStatsPage fetchStats={props.fetchStats} stats={props.stats} />,
     <PoolDepositPage fetchMemoBalance={props.fetchMemoBalance}
       memoBalance={props.memoBalance}
       redBalance={props.stats.red.accountBalance}
@@ -31,8 +31,8 @@ function PoolCardView(props) {
   ]
   
   return (
-    <Card className="PoolCard" >
-      <Heading as="h2">MEMO Pools</Heading>
+    <Card className="SplitCard" >
+      <Heading as="h2">MEMO Split</Heading>
       <NavSlider buttons={['Stats', 'Deposit', 'Withdraw', 'Swap']} onIndexChange={onIndexChange} />
       {cardPages[pageIndex]}
     </Card>
@@ -236,7 +236,7 @@ function PoolDepositPage({ fetchMemoBalance, memoBalance, redBalance, blackBalan
   );
 }
 
-function PoolStatsPage({ fetchStats, stats }) {
+function SplitStatsPage({ fetchStats, stats }) {
   useEffect(() => {
     fetchStats();
   }, [fetchStats]);
@@ -282,4 +282,4 @@ function PoolColumn({ column, columnData }) {
   );
 }
 
-export default PoolCardView;
+export default SplitCardView;
