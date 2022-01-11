@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Button, Spinner } from 'theme-ui';
 import { WalletContext } from '../../lib/WalletProvider';
-import { withdraw } from '../../lib/MemoPoolIntegrator';
+import { withdraw } from '../../lib/MemoSplitIntegrator';
 
 function WithdrawButton({ withdrawAmount, withdrawPool, disabled }) {
   const [busy, setBusy] = useState(false);

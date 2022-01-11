@@ -1,6 +1,6 @@
 import { useCallback, useContext, useReducer, useState } from 'react';
 import SplitCardView from "./SplitCardView";
-import { totalSupply, balanceOf, memoBalanceOf } from '../../lib/MemoPoolIntegrator';
+import { totalSupply, balanceOf, memoBalanceOf } from '../../lib/MemoSplitIntegrator';
 import { WalletContext } from '../../lib/WalletProvider';
 import { rebaseMultipliers, supplyProportions, formatNumber, poolReducer } from '../../lib/SplitHelper';
 

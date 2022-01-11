@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Button, Spinner } from 'theme-ui';
 import { WalletContext } from '../../lib/WalletProvider';
-import { poolSwap } from '../../lib/MemoPoolIntegrator';
+import { poolSwap } from '../../lib/MemoSplitIntegrator';
 
 function TransferButton({ transferAmount, fromPool, toPool, disabled }) {
   const [busy, setBusy] = useState(false);
