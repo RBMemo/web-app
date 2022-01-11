@@ -23,10 +23,12 @@ function SplitCardView(props) {
     <PoolDepositPage fetchMemoBalance={props.fetchMemoBalance}
       memoBalance={props.memoBalance}
       redBalance={props.stats.red.accountBalance}
-      blackBalance={props.stats.black.accountBalance} />,
+      blackBalance={props.stats.black.accountBalance}
+      locked={props.stats.depositLock} />,
     <PoolWithdrawPage
       redBalance={props.stats.red.accountBalance}
-      blackBalance={props.stats.black.accountBalance} />,
+      blackBalance={props.stats.black.accountBalance}
+      locked={props.stats.withdrawLock} />,
     <PoolSwapPage
       redBalance={props.stats.red.accountBalance}
       blackBalance={props.stats.black.accountBalance} />
@@ -149,7 +151,7 @@ function PoolSwapPage({ redBalance, blackBalance }) {
   );
 }
 
-function PoolWithdrawPage({ redBalance, blackBalance }) {
+function PoolWithdrawPage({ redBalance, blackBalance, locked }) {
   const [withdrawValue, setWithdrawValue] = useState('');
   const [poolValue, setPoolValue] = useState('red');
 
@@ -187,7 +189,7 @@ function PoolWithdrawPage({ redBalance, blackBalance }) {
       onChange={onWithdrawValueChange} />
 
       <Flex sx={{ width: '100%', justifyContent: 'center', mb: 4 }}>
-        <WithdrawButton withdrawAmount={withdrawValue} withdrawPool={poolValue} disabled={!validInput || Number(withdrawValue) === 0}/>
+        <WithdrawButton withdrawAmount={withdrawValue} withdrawPool={poolValue} disabled={!validInput || Number(withdrawValue) === 0 || locked}/>
       </Flex>
 
       <Flex sx={{ width: '100%', columnGap: '5px' }}>
@@ -211,7 +213,7 @@ function PoolWithdrawPage({ redBalance, blackBalance }) {
   );
 }
 
-function PoolDepositPage({ fetchMemoBalance, memoBalance, redBalance, blackBalance }) {
+function PoolDepositPage({ fetchMemoBalance, memoBalance, redBalance, blackBalance, locked }) {
   const [depositValue, setDepositValue] = useState('');
   const [poolValue, setPoolValue] = useState('red');
   
@@ -251,7 +253,7 @@ function PoolDepositPage({ fetchMemoBalance, memoBalance, redBalance, blackBalan
       </Box>
 
       <Flex sx={{ width: '100%', justifyContent: 'center', mb: 4 }}>
-        <DepositButton depositAmount={depositValue} depositPool={poolValue} disabled={!validInput || Number(depositValue) === 0}/>
+        <DepositButton depositAmount={depositValue} depositPool={poolValue} disabled={!validInput || Number(depositValue) === 0 || locked}/>
       </Flex>
 
       <Flex sx={{ width: '100%', columnGap: '5px' }}>
