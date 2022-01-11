@@ -5,10 +5,11 @@ import { IoMdArrowRoundDown } from 'react-icons/io';
 import { FiExternalLink } from 'react-icons/fi';
 import { MdLock } from 'react-icons/md';
 import MemoToken from '../../images/memo_token.png';
-import DepositButton from "../DepositButton";
-import WithdrawButton from "../WithdrawButton";
-import TransferButton from "../TransferButton";
-import NavSlider from "../NavSlider";
+import DepositButton from '../DepositButton';
+import WithdrawButton from '../WithdrawButton';
+import TransferButton from '../TransferButton';
+import NavSlider from '../NavSlider';
+import RebaseCountdown from '../RebaseCountdown';
 import './SplitCard.css'
 
 function SplitCardView(props) {
@@ -32,17 +33,18 @@ function SplitCardView(props) {
     <PoolSwapPage
       redBalance={props.stats.red.accountBalance}
       blackBalance={props.stats.black.accountBalance} />
-  ]
+  ];
   
   return (
     <Card className="SplitCard" >
-      <Box>
+      <Box sx={{ textAlign: 'center' }}>
         <Heading as="h2">MEMO Split</Heading>
         <NavLink variant="hintWithImage" sx={{ justifyContent: 'center' }}
         href="https://app.wonderland.money/#/stake" target="_blank">
           <FiExternalLink />
           Stake
         </NavLink>
+        <RebaseCountdown variant="hint" rebaseCron={'0 6,14,22 * * *'} />
       </Box>
       <Box className="NavSliderAndLockInfoContainer" sx={{ width: ['100%', '70%', '50%'] }}>
         <NavSlider buttons={['Stats', 'Deposit', 'Withdraw', 'Swap']} onIndexChange={onIndexChange} />
