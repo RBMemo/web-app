@@ -5,6 +5,13 @@
   row-gap: 24px;
 }
 
+.NavSliderAndLockInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 8px;
+}
+
 .PoolColumn {
   position: relative;
   width: 100%;

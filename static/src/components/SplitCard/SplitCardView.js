@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Card, Flex, Heading, Image, Input, Select, Text, useThemeUI } from "theme-ui";
+import { Badge, Box, Button, Card, Flex, Heading, Image, Input, NavLink, Select, Text, useThemeUI } from "theme-ui";
 import Skeleton from 'react-loading-skeleton';
 import { IoMdArrowRoundDown } from 'react-icons/io';
+import { FiExternalLink } from 'react-icons/fi';
+import { MdLock } from 'react-icons/md';
 import MemoToken from '../../images/memo_token.png';
 import DepositButton from "../DepositButton";
 import WithdrawButton from "../WithdrawButton";
@@ -32,10 +34,47 @@ function SplitCardView(props) {
   
   return (
     <Card className="SplitCard" >
-      <Heading as="h2">MEMO Split</Heading>
-      <NavSlider buttons={['Stats', 'Deposit', 'Withdraw', 'Swap']} onIndexChange={onIndexChange} />
+      <Box>
+        <Heading as="h2">MEMO Split</Heading>
+        <NavLink variant="hintWithImage" sx={{ justifyContent: 'center' }}
+        href="https://app.wonderland.money/#/stake" target="_blank">
+          <FiExternalLink />
+          Stake
+        </NavLink>
+      </Box>
+      <Box className="NavSliderAndLockInfoContainer" sx={{ width: ['100%', '70%', '50%'] }}>
+        <NavSlider buttons={['Stats', 'Deposit', 'Withdraw', 'Swap']} onIndexChange={onIndexChange} />
+        <LockInfo withdrawLock={props.stats.withdrawLock} depositLock={props.stats.depositLock} />
+      </Box>
       {cardPages[pageIndex]}
     </Card>
+  );
+}
+
+function LockInfo({ withdrawLock, depositLock }) {
+  function LockBadge({ text }) {
+    return (
+      <Badge sx={{ display: 'flex', alignItems: 'center', columnGap: '5px', width: 'min-content', paddingTop: '2px', paddingBottom: '2px' }}
+      onClick={() => window.open('https://docs.splitbase.fi/guides/deposit-withdraw#deposit-withdraw-locking', '_blank')}>
+        <MdLock />
+        {text}
+      </Badge>
+    );
+  }
+
+  const LockBadges = [];
+
+  if(withdrawLock)
+    LockBadges.push(<LockBadge key={0} text="Withdraw" />);
+  
+  if(depositLock)
+    LockBadges.push(<LockBadge key={1} text="Deposit" />);
+
+
+  return (
+    <Flex sx={{ alignItems: 'center', columnGap: '16px' }}>
+      {LockBadges}
+    </Flex>
   );
 }
 

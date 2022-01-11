@@ -100,6 +100,37 @@ const theme = {
         outline: '0'
       }
     }
+  },
+  links: {
+    hint: {
+      opacity: '60%',
+      fontSize: 'small',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    },
+    withImage: {
+      display: 'flex',
+      alignItems: 'center',
+      columnGap: '5px',
+    },
+    hintWithImage: {
+      opacity: '60%',
+      fontSize: 'small',
+      display: 'flex',
+      alignItems: 'center',
+      columnGap: '5px',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
+    }
+  },
+  badges: {
+    primary: {
+      color: 'primary',
+      bg: 'transparent',
+      boxShadow: 'inset 0 0 0 1px'
+    }
   }
 }
 

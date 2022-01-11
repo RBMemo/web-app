@@ -49,6 +49,14 @@ async function memoBalanceOf(address) {
   return await dispatchMethodAsync(MemoABI.methods.balanceOf(address));
 }
 
+async function withdrawLock() {
+  return await dispatchMethodAsync(ControllerABI.methods.withdrawLock());
+}
+
+async function depositLock() {
+  return await dispatchMethodAsync(ControllerABI.methods.depositLock());
+}
+
 async function deposit(account, amount, poolColor) {
   try {
     const pool = poolEnum(poolColor);
@@ -90,5 +98,7 @@ export {
   memoBalanceOf,
   deposit,
   withdraw,
-  poolSwap
+  poolSwap,
+  withdrawLock,
+  depositLock
 }

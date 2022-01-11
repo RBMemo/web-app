@@ -22,7 +22,7 @@ function Footer() {
 function ImageLink({ Image, text, url }) {
   return (
     <NavLink href={url} target="_blank"
-    sx={{ display: 'flex', alignItems: 'center', columnGap: '5px', fontSize: ['small', 'medium'] }}>
+    sx={{ fontSize: ['small', 'medium'] }} variant="withImage">
       <Image />
       {text}
     </NavLink>

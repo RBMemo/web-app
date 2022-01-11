@@ -1,11 +1,11 @@
 import { useCallback, useContext, useReducer, useState } from 'react';
 import SplitCardView from "./SplitCardView";
-import { totalSupply, balanceOf, memoBalanceOf } from '../../lib/MemoSplitIntegrator';
+import { totalSupply, balanceOf, memoBalanceOf, depositLock, withdrawLock } from '../../lib/MemoSplitIntegrator';
 import { WalletContext } from '../../lib/WalletProvider';
-import { rebaseMultipliers, supplyProportions, formatNumber, poolReducer } from '../../lib/SplitHelper';
+import { rebaseMultipliers, supplyProportions, formatNumber, splitReducer } from '../../lib/SplitHelper';
 
 function SplitCardContainer() {
-  const [stats, dispatch] = useReducer(poolReducer, { red: {}, black: {} });
+  const [stats, dispatch] = useReducer(splitReducer, { red: {}, black: {} });
   const [memoBalance, setMemoBalance] = useState();
   const { account } = useContext(WalletContext);
 
@@ -31,6 +31,9 @@ function SplitCardContainer() {
     balanceOf(account, 'black').then(balance => dispatch({
       type: 'setAccountBalance', pool: 'black', value: formatNumber(balance, 9, 9)
     }));
+
+    withdrawLock().then(lock => dispatch({ type: 'setWithdrawLock', value: lock }));
+    depositLock().then(lock => dispatch({ type: 'setDepositLock', value: lock }));
   }, [account]);
 
   const fetchMemoBalance = useCallback(() => {

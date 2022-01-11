@@ -29,7 +29,7 @@ function formatNumber(number, precision = 2, decimals = 0) {
   return (Number(number) / 10**decimals).toLocaleString(undefined, { maximumFractionDigits: precision });
 }
 
-function poolReducer(state, action) {
+function splitReducer(state, action) {
   function setValue(pool, key, value) {
     return {
       ...state,
@@ -49,6 +49,10 @@ function poolReducer(state, action) {
       return setValue(action.pool, 'multiplier', action.value);
     case 'setProportion':
       return setValue(action.pool, 'proportion', action.value);
+    case 'setWithdrawLock':
+      return { ...state, 'withdrawLock': action.value }
+    case 'setDepositLock':
+      return { ...state, 'depositLock': action.value }
     default:
       throw new Error('Unrecognized action');
   }
@@ -58,5 +62,5 @@ export {
   rebaseMultipliers,
   supplyProportions,
   formatNumber,
-  poolReducer
+  splitReducer
 }

@@ -11,7 +11,7 @@ function NavSlider({ buttons, onIndexChange }) {
   }
   
   return (
-    <Flex className="NavSliderContainer" sx={{ width: ['100%', '70%', '50%'] }}>
+    <Flex className="NavSliderContainer">
       {buttons.map((btnText, i) => (
         <Button variant="noHover"
         key={i}
