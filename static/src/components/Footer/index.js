@@ -13,7 +13,7 @@ function Footer() {
   ];
 
   return (
-    <Flex className="FooterContainer">
+    <Flex className="FooterContainer" sx={{ mt: 4 }}>
       {links.map((info, i) => <ImageLink key={i} {...info} />)}
     </Flex>
   );

@@ -102,6 +102,20 @@ async function memoPermit(owner, spender, amount) {
   return [owner, spender, value, deadline, v, r, s];
 }
 
+async function getPastLogs(address, topics, dataTypes, fromBlock = 'latest', toBlock = 'latest') {
+  const logs = await web3.eth.getPastLogs({
+    address,
+    topics,
+    fromBlock,
+    toBlock
+  });
+
+  return logs.map(log => {
+    log.topics.shift();
+    return web3.eth.abi.decodeLog(dataTypes, log.data, log.topics);
+  });
+}
+
 export {
   initMetaMask,
   connect,
@@ -111,5 +125,6 @@ export {
   dispatchMethodAsync,
   web3,
   switchChain,
-  memoPermit
+  memoPermit,
+  getPastLogs
 }

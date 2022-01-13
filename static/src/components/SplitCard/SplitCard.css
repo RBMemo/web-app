@@ -54,3 +54,19 @@
   position: absolute;
   z-index: 2;
 }
+
+.SplitHistoryList {
+  align-items: center;
+  column-gap: 8px;
+}
+
+.SplitHistoryContainer {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.SplitHistoryContainer::-webkit-scrollbar {
+  display: none;
+}

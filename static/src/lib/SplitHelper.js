@@ -7,7 +7,7 @@ function rebaseMultipliers(redTotalSupply, blackTotalSupply) {
   if(blackTotalSupply)
     blackMultiplier = 1 + (redTotalSupply / blackTotalSupply);
   
-  return [redMultiplier, blackMultiplier];
+  return [redMultiplier - .033, blackMultiplier - .033];
 }
 
 function supplyProportions(redTotalSupply, blackTotalSupply) {
@@ -53,6 +53,8 @@ function splitReducer(state, action) {
       return { ...state, 'withdrawLock': action.value }
     case 'setDepositLock':
       return { ...state, 'depositLock': action.value }
+    case 'setRebaseHistory':
+      return { ...state, 'rebaseHistory': action.value }
     default:
       throw new Error('Unrecognized action');
   }

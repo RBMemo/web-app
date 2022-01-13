@@ -10,7 +10,7 @@ function timeString(hours, minutes, seconds) {
 
   return `
     ${hours > 0 ? `${hours} Hour${hours > 1 ? 's' : ''},` : ''}
-    ${`${minuteAmount}${minuteUnit}${showSeconds ? ', ' : ``}`}
+    ${`${minuteAmount}${minuteUnit}${showSeconds && minuteAmount !== '' ? ', ' : ``}`}
     ${showSeconds ? `${seconds} Seconds` : ''} to Next Rebase
   `;
 }

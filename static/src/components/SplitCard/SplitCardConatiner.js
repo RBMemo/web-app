@@ -1,6 +1,6 @@
-import { useCallback, useContext, useReducer, useState } from 'react';
+import { useCallback, useContext, useEffect, useReducer, useState } from 'react';
 import SplitCardView from "./SplitCardView";
-import { totalSupply, balanceOf, memoBalanceOf, depositLock, withdrawLock } from '../../lib/MemoSplitIntegrator';
+import { totalSupply, balanceOf, memoBalanceOf, depositLock, withdrawLock, rebaseHistory } from '../../lib/MemoSplitIntegrator';
 import { WalletContext } from '../../lib/WalletProvider';
 import { rebaseMultipliers, supplyProportions, formatNumber, splitReducer } from '../../lib/SplitHelper';
 
@@ -39,11 +39,25 @@ function SplitCardContainer() {
   const fetchMemoBalance = useCallback(() => {
     memoBalanceOf(account).then(balance => setMemoBalance(formatNumber(balance, 9, 9)));
   }, [account]);
+  
+  useEffect(() => {
+    rebaseHistory().then(logs => {
+      logs = logs.reverse().slice(0, 15);
+      const history = logs.map(log => ({
+        selectedPool: log.selectedPool,
+        multiplier: formatNumber(rebaseMultipliers(log.redSupply, log.blackSupply)[log.selectedPool]),
+        percentYield: formatNumber(log.amount / { 0: log.redSupply, 1: log.blackSupply }[log.selectedPool], 2, -2)
+      }));
+
+      dispatch({ type: 'setRebaseHistory', value: history })
+    });
+  }, []);
 
   return (
     <SplitCardView
     fetchStats={fetchStats}
     fetchMemoBalance={fetchMemoBalance}
+    rebaseHistory={stats.rebaseHistory}
     memoBalance={memoBalance}
     stats={stats} />
   );

@@ -67,7 +67,7 @@ const theme = {
     }
   },
   cards: {
-    primary: {
+    pageCard: {
       bg: 'rgba(255, 255, 255, 14%)',
       borderRadius: '10px',
       p: 3,

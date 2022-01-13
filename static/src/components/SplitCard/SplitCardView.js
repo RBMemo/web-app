@@ -20,7 +20,7 @@ function SplitCardView(props) {
   }
 
   const cardPages = [
-    <SplitStatsPage fetchStats={props.fetchStats} stats={props.stats} />,
+    <SplitStatsPage fetchStats={props.fetchStats} stats={props.stats} rebaseHistory={props.rebaseHistory} />,
     <PoolDepositPage fetchMemoBalance={props.fetchMemoBalance}
       memoBalance={props.memoBalance}
       redBalance={props.stats.red.accountBalance}
@@ -36,7 +36,7 @@ function SplitCardView(props) {
   ];
   
   return (
-    <Card className="SplitCard" >
+    <Card className="SplitCard" variant="pageCard">
       <Box sx={{ textAlign: 'center' }}>
         <Heading as="h2">MEMO Split</Heading>
         <NavLink variant="hintWithImage" sx={{ justifyContent: 'center' }}
@@ -80,6 +80,49 @@ function LockInfo({ withdrawLock, depositLock }) {
       {LockBadges}
     </Flex>
   );
+}
+
+function SplitHistory({ rebaseHistory }) {
+  if(!rebaseHistory) rebaseHistory = Array.apply(null, Array(10)).map(() => 0);
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Heading as="h4" pb="2">Rebase History</Heading>
+      <Box className="SplitHistoryContainer">
+        <Box sx={{ alignSelf: 'flex-start', width: 'fit-content' }}>
+          <Flex className="SplitHistoryList">
+            {rebaseHistory.map((data, i) => <SplitHistoryCard key={i} {...data} />)}
+          </Flex>
+        </Box>
+      </Box>
+    </Box>
+  );
+}
+
+function SplitHistoryCard({ selectedPool, multiplier, percentYield }) {
+  if(selectedPool) {
+    const bg = {
+      0: 'primary',
+      1: 'secondary'
+    }[selectedPool];
+
+    return (
+      <Card sx={{ bg, borderRadius: '10px' }}>
+        <Flex sx={{ flexDirection: 'column', p: 3, rowGap: '16px' }}>
+          <Box className="PoolColumnItem">
+            {multiplier}x
+            <Text variant="hint">Multiplier</Text>
+          </Box>
+          <Box className="PoolColumnItem">
+            {percentYield}%
+            <Text variant="hint">Yield</Text>
+          </Box>
+        </Flex>
+      </Card>
+    );
+  }
+  else {
+    return <Skeleton width="88px" height="116px" />
+  }
 }
 
 function PoolSwapPage({ redBalance, blackBalance }) {
@@ -279,16 +322,19 @@ function PoolDepositPage({ fetchMemoBalance, memoBalance, redBalance, blackBalan
   );
 }
 
-function SplitStatsPage({ fetchStats, stats }) {
+function SplitStatsPage({ fetchStats, stats, rebaseHistory }) {
   useEffect(() => {
     fetchStats();
   }, [fetchStats]);
   
   return (
-    <Flex sx={{ columnGap: '5px', width: '100%' }}>
-      <PoolColumn column={0} columnData={stats.red} />
-      <PoolColumn column={1} columnData={stats.black} />
-    </Flex>
+    <Box sx={{ width: '100%' }}>
+      <Flex sx={{ columnGap: '5px', mb: 4 }}>
+        <PoolColumn column={0} columnData={stats.red} />
+        <PoolColumn column={1} columnData={stats.black} />
+      </Flex>
+      <SplitHistory rebaseHistory={rebaseHistory} />
+    </Box>
   );
 }
 
