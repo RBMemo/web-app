@@ -6,11 +6,11 @@ const doc = {
 	info: {
 		version,
 		title,
-		description: "Docs for web app api"
+		description: "Docs for web app API"
 	},
 	host,
 	basePath: "/",
-	schemes: ['http', 'https'],
+	schemes: ['http'],
 	consumes: ['application/json'],
 	produces: ['application/json'],
 	definitions: {}

@@ -3,16 +3,44 @@
   "info": {
     "version": "1.0.0",
     "title": "web-app",
-    "description": "Docs for web app api"
+    "description": "Docs for web app API"
   },
   "servers": [
     {
-      "url": "http://localhost:3000/"
-    },
-    {
-      "url": "https://localhost:3000/"
+      "url": "http://localhost:3001/"
     }
   ],
   "tags": [],
-  "paths": {}
+  "paths": {
+    "/api/v1/rebase_history/{address}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "description": "Returns history of rebases for specified controller address",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "historyLength",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  }
 }
