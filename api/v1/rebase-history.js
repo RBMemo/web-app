@@ -26,7 +26,7 @@ async function RebaseHistory(req, res) {
   // #swagger.description = 'Returns history of rebases for specified controller address'
 
   const { address } = req.params;
-  const { historyLength } = req.query;
+  const { limit } = req.query;
 
   let history = await cache.jGet(`${address}.rebaseHistory`);
   if(!history) {
@@ -34,8 +34,8 @@ async function RebaseHistory(req, res) {
     history = await cache.jGet(`${address}.rebaseHistory`);
   }
 
-  if(historyLength && historyLength < history.length) {
-    history = history.slice(history.length - historyLength, history.length);
+  if(limit && limit < history.length) {
+    history = history.slice(history.length - limit, history.length);
   }
 
   res.status(200).json(history);

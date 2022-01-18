@@ -41,8 +41,8 @@ function SplitCardContainer() {
   }, [account]);
   
   useEffect(() => {
-    rebaseHistory().then(logs => {
-      logs = logs.reverse().slice(0, 15);
+    rebaseHistory(15).then(logs => {
+      logs = logs.reverse();
       const history = logs.map(log => ({
         selectedPool: log.selectedPool,
         multiplier: formatNumber(rebaseMultipliers(log.redSupply, log.blackSupply)[log.selectedPool]),

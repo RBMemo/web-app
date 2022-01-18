@@ -2,6 +2,7 @@
   "name": "web-app",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "@metamask/detect-provider": "^1.2.0",
     "@metamask/onboarding": "^1.0.1",

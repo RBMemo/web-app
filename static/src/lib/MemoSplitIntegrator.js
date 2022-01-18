@@ -1,13 +1,11 @@
 import Web3 from 'web3';
-import { dispatchMethodAsync, memoPermit, getPastLogs } from './MetaMask';
+import { dispatchMethodAsync, memoPermit } from './MetaMask';
 import RedMemoPool from '@splitbase-dev/contracts/deployments/mainnet/RedMemoPool.json';
 import BlackMemoPool from '@splitbase-dev/contracts/deployments/mainnet/BlackMemoPool.json';
 import ERC20ABI from './contracts/ERC20ABI.json';
 import RBPoolController from '@splitbase-dev/contracts/deployments/mainnet/RBPoolController.json';
 
 const MEMO_ADDRESS = '0x136Acd46C134E8269052c62A67042D6bDeDde3C9';
-const REBASE_TOPIC = '0x5899dee610fd5140296c7bd89bd352c8236705b7339a1078727dc830db7019e5';
-const CONSTRUCT_BLOCK = 9361827;
 
 const ethProvider = window.ethereum;
 const web3 = new Web3(ethProvider);
@@ -94,15 +92,9 @@ async function poolSwap(account, amount, fromPoolColor, toPoolColor) {
   }
 }
 
-async function rebaseHistory() {
-  const rebaseLogStruct = RBPoolController.abi.find(item => item.name === 'LogRebase').inputs;
-
-  return await getPastLogs(
-    RBPoolController.address,
-    [REBASE_TOPIC],
-    rebaseLogStruct,
-    CONSTRUCT_BLOCK
-  );
+async function rebaseHistory(limit) {
+  const res = await fetch(`/api/v1/rebase_history/${RBPoolController.address}${limit ? `?limit=${limit}` : ''}`);
+  return await res.json();
 }
 
 export {

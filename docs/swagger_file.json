@@ -28,7 +28,7 @@
             }
           },
           {
-            "name": "historyLength",
+            "name": "limit",
             "in": "query",
             "schema": {
               "type": "string"
