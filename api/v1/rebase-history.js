@@ -1,4 +1,4 @@
-const { fetchRebaseHistory, nextRebase } = require('../../lib/controller-integrator');
+const { fetchRebaseHistory, nextRebase } = require('../../lib/split-integrator');
 const cache = require('../../lib/cache');
 
 async function updateHistoryCache(address, lastBlockNumber) {

@@ -41,6 +41,29 @@
           }
         }
       }
+    },
+    "/api/v1/pool_total_supply/{address}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "description": "Returns total supply of pool at specified pool address",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   }
 }

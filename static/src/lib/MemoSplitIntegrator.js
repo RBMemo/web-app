@@ -26,6 +26,17 @@ function abi(poolColor) {
   }
 }
 
+function poolAddress(poolColor) {
+  switch(poolColor) {
+    case 'red':
+      return RedMemoPool.address;
+    case 'black':
+      return BlackMemoPool.address;
+    default:
+      throw new Error(`Invalid Pool Color: ${poolColor}`);
+  }
+}
+
 function poolEnum(poolColor) {
   switch(poolColor) {
     case 'red':
@@ -38,7 +49,8 @@ function poolEnum(poolColor) {
 }
 
 async function totalSupply(poolColor) {
-  return await dispatchMethodAsync(abi(poolColor).methods.totalSupply());
+  const res = await fetch(`/api/v1/pool_total_supply/${poolAddress(poolColor)}`);
+  return await res.json();
 }
 
 async function balanceOf(address, poolColor) {
