@@ -9,13 +9,13 @@ const job = new BaseJob('RefreshMemoRebaseHistoryCacheJob', async () => {
   if(await cache.get(`${ADDRESS}.rebaseHistory.valid`))
     return;
 
-  let curHistory = await cache.jGet(`${ADDRESS}.rebaseHistory`);
-  const lastBlockNumber = curHistory ? curHistory[curHistory.length - 1].blockNumber : null;
+  const history = await cache.jGet(`${ADDRESS}.rebaseHistory`);
+  const lastBlockNumber = history ? history[history.length - 1].blockNumber : null;
 
   const newHistory = await fetchRebaseHistory(ADDRESS, lastBlockNumber);
 
   if(newHistory.length > 0) {
-    curHistory ||= [];
+    const curHistory = history || [];
     await cache.jSet(`${ADDRESS}.rebaseHistory`, [...curHistory, ...newHistory]);
     cache.set(
       `${ADDRESS}.rebaseHistory.valid`,
