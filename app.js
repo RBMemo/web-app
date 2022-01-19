@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('./jobs/schedules');
 const express = require('express');
 const compression = require('compression');
 const router = require('./routes');

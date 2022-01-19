@@ -27,6 +27,7 @@
     "dotenv": "^13.0.1",
     "express": "^5.0.0-alpha.8",
     "express-winston": "^4.2.0",
+    "node-schedule": "^2.1.0",
     "redis": "^4.0.2",
     "swagger-autogen": "^2.17.2",
     "swagger-ui-express": "^4.3.0",
