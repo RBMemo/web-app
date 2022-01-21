@@ -8,7 +8,6 @@ const ADDRESS = MemoController.address;
 
 const job = new BaseJob('RefreshMemoRebaseHistoryCacheJob', async () => {
   try {
-    error
     if(await cache.get(`${ADDRESS}.rebaseHistory.valid`))
       return;
     const history = await cache.jGet(`${ADDRESS}.rebaseHistory`);
