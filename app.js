@@ -3,7 +3,7 @@ require('./jobs/schedules');
 const express = require('express');
 const compression = require('compression');
 const router = require('./routes');
-const { logger, trafficLogger, errorLogger } = require('./lib/logger');
+const { logger, trafficLogger } = require('./lib/logger');
 const cache = require('./lib/cache');
 const app = express();
 
@@ -20,7 +20,10 @@ app.use(compression());
 app.use(router);
 
 // error logging
-app.use(errorLogger);
+app.use(function (err, req, res, next) {
+  logger.error(err);
+  res.status(500).send('Internal Server Error');
+});
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

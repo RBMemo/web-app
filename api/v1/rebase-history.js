@@ -1,4 +1,4 @@
-const { fetchRebaseHistory, nextRebase } = require('../../lib/split-integrator');
+const { fetchRebaseHistory, nextRebase, isController } = require('../../lib/split-integrator');
 const cache = require('../../lib/cache');
 
 async function updateHistoryCache(address, lastBlockNumber) {
@@ -27,6 +27,11 @@ async function RebaseHistory(req, res) {
 
   const { address } = req.params;
   const { limit } = req.query;
+
+  if(!isController(address)) {
+    res.status(400).json({ message: 'address is not a controller' });
+    return;
+  }
 
   let history = await cache.jGet(`${address}.rebaseHistory`);
   if(!history) {

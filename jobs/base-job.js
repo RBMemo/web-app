@@ -3,13 +3,7 @@ const { logger } = require('../lib/logger');
 
 class BaseJob extends Job {
   constructor(name, job) {
-    super(name, async () => {
-      try {
-        await job;
-      } catch (e) {
-        logger.error(e);
-      }
-    });
+    super(name, job);
     
     this.on('scheduled', this.onScheduled);
     this.on('success', this.onSuccess);
