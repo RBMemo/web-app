@@ -5,7 +5,7 @@ import MetaMaskOnboarding from '@metamask/onboarding';
 import { connect, requiredChain, switchChain } from '../../lib/MetaMask';
 import { WalletContext } from '../../lib/WalletProvider';
 import MetaMaskLogo from '../../images/metamask_logo.png';
-import AvaxLogo from '../../images/avax_logo.svg'
+import AvaxLogo from '../../images/avax_logo.svg';
 
 function InstallButton() {
   return <BaseButton text="Install" imageSrc={MetaMaskLogo} variant="outlined" onClick={() => new MetaMaskOnboarding().startOnboarding() } />

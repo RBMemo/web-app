@@ -5,12 +5,10 @@ import { IoMdArrowRoundDown } from 'react-icons/io';
 import { FiExternalLink } from 'react-icons/fi';
 import { MdLock } from 'react-icons/md';
 import MemoToken from '../../images/memo_token.png';
-import DepositButton from '../DepositButton';
-import WithdrawButton from '../WithdrawButton';
-import TransferButton from '../TransferButton';
+import { DepositButton, WithdrawButton, TransferButton } from '../TransactionButton';
 import NavSlider from '../NavSlider';
 import RebaseCountdown from '../RebaseCountdown';
-import './SplitCard.css'
+import './SplitCard.css';
 
 function SplitCardView(props) {
   const [pageIndex, setPageIndex] = useState(0);
@@ -32,7 +30,8 @@ function SplitCardView(props) {
       locked={props.stats.withdrawLock} />,
     <PoolSwapPage
       redBalance={props.stats.red.accountBalance}
-      blackBalance={props.stats.black.accountBalance} />
+      blackBalance={props.stats.black.accountBalance}
+      locked={props.stats.withdrawLock} />
   ];
   
   return (
@@ -125,7 +124,7 @@ function SplitHistoryCard({ selectedPool, multiplier, percentYield }) {
   }
 }
 
-function PoolSwapPage({ redBalance, blackBalance }) {
+function PoolSwapPage({ redBalance, blackBalance, locked }) {
   const [transferValue, setTransferValue] = useState('');
   const [poolRoutes, setPoolRoutes] = useState({ from: 'red', to: 'black' });
   
@@ -190,7 +189,7 @@ function PoolSwapPage({ redBalance, blackBalance }) {
       onChange={onTransferValueChange} />
 
       <Flex sx={{ width: '100%', justifyContent: 'center' }}>
-        <TransferButton transferAmount={transferValue} fromPool={poolRoutes.from} toPool={poolRoutes.to} disabled={!validInput || Number(transferValue) === 0}/>
+        <TransferButton transferAmount={transferValue} fromPool={poolRoutes.from} toPool={poolRoutes.to} disabled={!validInput || Number(transferValue) === 0 || locked}/>
       </Flex>
     </Box>
   );
